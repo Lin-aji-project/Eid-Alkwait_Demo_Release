@@ -1,0 +1,225 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Property/Views/Shared/_Layout.cshtml";
+}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <i class="fas fa-2x fa-barcode"></i>
+                                    <p class="fs-4 mb-2 text-muted">New Orders</p>
+                                </div>
+                                <div class="ms-auto">
+                                    <h1 class="fw-light text-end">@ViewBag.NewOrderCount</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <i class="fas fa-2x fa-shipping-fast"></i>
+                                    <p class="fs-4 mb-2 text-muted">Orders Shipped</p>
+                                </div>
+                                <div class="ms-auto">
+                                    <h1 class="fw-light text-end">@ViewBag.OrdersShippedCount</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <i class="fas fa-2x fa-person-booth"></i>
+                                    <p class="fs-4 mb-2 text-muted">Orders Delivered</p>
+                                </div>
+                                <div class="ms-auto">
+                                    <h1 class="fw-light text-end">@ViewBag.OrdersDeliveredCount</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="col-11">
+            <div class="row">
+                <div class="col-lg-3">
+                    <a href="~/Property/Categories" class="text-decoration-none">
+                        <div class="card btn-outline-primary text-center p-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-center justify-content-center fs-5 fw-bolder">
+                                            <div>
+                                                @*@Html.ActionLink("Category", "Index", "Categories", null, new { @class = "text-black text-decoration-none" })*@
+                                                Category
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+                <div class="col-lg-3">
+                    <a href="~/Property/Brands" class="text-decoration-none">
+                        <div class="card btn-outline-secondary fs text-center p-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-center justify-content-center fs-5 fw-bolder">
+                                            <div>
+                                                @*@Html.ActionLink("Brand", "Index", "Brands", null, new { @class = "text-black text-decoration-none" })*@
+                                                Brands
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3">
+                    <a href="~/Property/Units" class="text-decoration-none">
+                        <div class="card btn-outline-warning text-center p-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-center justify-content-center fs-5 fw-bolder">
+                                            <div>
+                                                @*@Html.ActionLink("Unit", "Index", "Units", null, new { @class = "text-black text-decoration-none" })*@
+                                                Units
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3">
+                    <a href="~/Property/Products" class="text-decoration-none">
+                        <div class="card btn-outline-success text-center p-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-center justify-content-center fs-5 fw-bolder">
+                                            <div>
+                                                @*@Html.ActionLink("Product", "Index", "Products", null, new { @class = "text-black text-decoration-none" })*@
+                                                Products
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="col-11">
+            <div class="row">
+                <div class="col-lg-3">
+                    <a href="~/Property/Orders" class="text-decoration-none">
+                        <div class="card btn-outline-primary text-center p-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-center justify-content-center fs-5 fw-bolder">
+                                            <div>
+                                                Orders
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!--<div class="col-lg-3">
+                    <a href="~/Property/Brands" class="text-decoration-none">
+                        <div class="card btn-outline-secondary fs text-center p-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-center justify-content-center fs-5 fw-bolder">
+                                            <div>-->
+                                                @*@Html.ActionLink("Brand", "Index", "Brands", null, new { @class = "text-black text-decoration-none" })*@
+                                                <!--Brands
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3">
+                    <a href="~/Property/Units" class="text-decoration-none">
+                        <div class="card btn-outline-warning text-center p-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-center justify-content-center fs-5 fw-bolder">
+                                            <div>-->
+                                                @*@Html.ActionLink("Unit", "Index", "Units", null, new { @class = "text-black text-decoration-none" })*@
+                                                <!--Units
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3">
+                    <a href="~/Property/Products" class="text-decoration-none">
+                        <div class="card btn-outline-success text-center p-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-center justify-content-center fs-5 fw-bolder">
+                                            <div>-->
+                                                @*@Html.ActionLink("Product", "Index", "Products", null, new { @class = "text-black text-decoration-none" })*@
+                                                <!--Products
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+

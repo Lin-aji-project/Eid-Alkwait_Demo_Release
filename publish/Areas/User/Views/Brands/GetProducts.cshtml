@@ -1,0 +1,62 @@
+﻿@using Eid_AL_Kuwait.Models;
+
+@{
+    ViewBag.Title = "GetProducts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mt-5 container">
+    <div class="row">
+        @foreach (var product in ViewBag.products)
+        {
+
+            var imgsrc = String.Format("data:image/gif;base64,{0}", product.Product.ImageFileContent != null ? product.Product.ImageFileContent : " ");
+            var name = String.Format(product.Product.ProductName);
+            string ProductId = String.Format(product.Product.ProductId.ToString());
+            string variationId = String.Format(product.Variation.ProductVariationId.ToString());
+
+            <div class="col-2 border-2 rounded-3 shadow p-3 m-3">
+                <div style="text-align:center">
+                    @Html.ImageActionLinkWithName((string)name, "Details", "Products", new { id = product.Product.ProductId }, new { style = "height: 150px; width:150px;" }, (string)imgsrc)
+                </div>
+                <div class="row">
+                    <div class="col-12" style="text-align:center">
+                        <h6>$ @product.Variation.RetailPrice / @product.Product.UnitName</h6>
+                    </div>
+
+                    @using (Ajax.BeginForm("AddToCart", "Cart", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "Success" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
+                    {
+
+                        <div class="row" style="text-align:center">
+                            <div class="offset-1 col-6">
+                                <input type="number" class="form-control cart-qty" min="1" name="cartQty" id="cartQty" value="1" required>
+                            </div>
+                            <div class=" col-4">
+                                @Html.Hidden("Product.ProductId", ProductId)
+                                @Html.Hidden("options", variationId)
+                                <button type="submit" id="Buybtn" class="btn btn-primary w-100">Buy</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        function Success(response) {
+            if (response == "")
+                alert("Please login to purchase");
+            else if (response.success == "Added") {
+                $("#cart-qty").text(response.count);
+                alert("Added successfully");
+            }
+        }
+        $(document).ajaxStop(function () {
+            window.location.reload();
+        });
+    </script>
+}

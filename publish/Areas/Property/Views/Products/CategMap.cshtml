@@ -1,0 +1,63 @@
+﻿@model Eid_AL_Kuwait.ViewModel.CategoryProductViewModel
+@{
+    ViewBag.Title = "CategMap";
+    Layout = "~/Areas/Property/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-3">
+        @using (Html.BeginForm("CategMap", "Products", FormMethod.Post, null))
+        {
+            @Html.AntiForgeryToken()
+            <div class="col-12 mb-2">
+                @Html.LabelFor(model => model.Product.ProductName, new { @class = "form-label" })
+                @Html.TextBoxFor(model => model.Product.ProductName, new { @class = "form-control", @readonly = "" })
+                @Html.HiddenFor(model => model.Product.ProductId)
+            </div>
+            <div class="mb-2">
+                @Html.LabelFor(model => model.CategoryId,"Category", htmlAttributes: new { @class = "form-label" })
+                @Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.Categories, "CategoryId", "CategoryName"), "Select The Category", new Dictionary<string, object> { { "class", "form-control" }, { "style", "-webkit-appearance:menulist" } })
+                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+            </div>
+            <div class="mt-3" style="text-align:center">
+                <button type="submit" class="btn btn-outline-primary me-2">Map</button>
+                <span>@Html.ActionLink("Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-outline-secondary" })</span>
+            </div>
+        }
+    </div>
+    <div class="col-9 p-2">
+        <div class="col p-4" style="overflow: scroll; height: 650px">
+            <table class="table table-bordered table-striped mb-0" id="BrandTbl">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col-1">#</th>
+                        <th scope="col" class="col-5">Category</th>
+                        <th scope="col" class="col-5"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.Product.Category )
+                        {
+                            <tr>
+                                <th scope="row">@product.CategoryId</th>
+                                <td>@product.CategoryName</td>
+                                <td>
+                                    @Ajax.ActionLink("Delete", "DeleteCategMap", "Products", new {ProductId = Model.Product.ProductId, CategoryId = @product.CategoryId }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "window.location.reload()" }, new { @class = "btn btn-outline-danger" })
+                                </td>
+                            </tr>
+                        }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $('table.table').DataTable();
+        });
+    </script>
+}
+

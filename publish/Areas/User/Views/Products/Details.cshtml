@@ -1,0 +1,180 @@
+﻿@model Eid_AL_Kuwait.Areas.User.ViewModel.UserProductViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var defaultimg = String.Format("data:image/gif;base64,{0}", (Model.Product.ImageFileContent != null ? Model.Product.ImageFileContent : " "));
+    var count = 0;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <p><h2>Details</h2></p>
+        </div>
+        <div class="col-5">
+            <div class="col" style="text-align:center">
+                <figure class="figure">
+                    <img style="width:400px;height:400px;" src="@defaultimg" class="figure-img img-fluid rounded main-img" alt="@Model.Product.ProductName">
+                </figure>
+            </div>
+            <div class="row col-10 offset-1">
+                @foreach (var image in Model.Product.ProductImages)
+                {
+                    var imgId = 1;
+                    var imgsrc = String.Format("data:image/gif;base64,{0}", (image.ImageFileContent != null ? image.ImageFileContent : " "));
+                    <div class="col-3 mb-3">
+                        <img style="height: 100px; width:100px" src="@imgsrc" class="img-thumbnail" id="@imgId-Image" alt="@image.ImageName" />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col">
+            <div class="col">
+
+                <h5>@Model.Product.ProductName</h5>
+                <p class="mb-2 text-muted text-uppercase small"> Unit : @Model.Product.UnitName </p>
+
+                <p><span class="mr-1"><strong id="price">$@Model.Variation.Price</strong></span></p>
+                <p class="pt-1">
+                    @Model.Product.ProductDescription
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit
+                    error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam. Distinctio,
+                    officia quis dolore quos sapiente tempore alias.
+                </p>
+                <div class="table-responsive" style="width:300px;">
+                    <table class="table table-sm table-borderless mb-0">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Model</th>
+                                <td>@Model.Product.CategoryName</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Brand</th>
+                                <td>@Model.Product.BrandName</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Delivery</th>
+                                <td>Kuwait</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Availability</th>
+                                <td>
+                                    @{
+                                        if (Model.Variation.IsInStock)
+                                        {
+                                            <div class="text-success" id="availability"><Strong>In Stock</Strong></div>
+                                        }
+
+                                        else
+                                        {
+                                            <div class="text-danger" id="availability"><Strong>Out of Stock</Strong></div>
+                                        }
+
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr>
+                @using (Ajax.BeginForm("AddToCart", "Cart", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "Success"}, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))
+                {
+                    <div class="table-responsive mb-2">
+                        <table class="table table-sm table-borderless">
+                            <thead>
+                                <tr>
+                                    <th class="col-2 Qtytable">Quantity</th>
+                                    <th class="offset-1 col">Select @Model.Variation.ProductVariationName</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="form-group Qtytable">
+                                        <div class="form-group mb-0">
+                                            <input type="number" class="form-control cart-qty" min="1" name="cartQty" id="cartQty" value="1" required>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            @foreach (var variation in Model.Product.ProductVariations)
+                                            {
+                                                var check = count == 0 ? "checked" : "";
+                                                count++;
+                                                <input type="radio" class="prodvar btn-check" name="options" value="@variation.ProductVariationId" id="@variation.ProductVariationId" autocomplete="off" @check>
+                                                <label class="btn btn-outline-warning" for="@variation.ProductVariationId">@variation.ProductVariationValue</label>
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    @Html.HiddenFor(p => p.Product.ProductId)
+                    {
+                        if (Model.Variation.IsInStock)
+                        {
+                            <button type="submit" id="AddToCartBtn" class="btn btn-success btn-md Qtytable">Add to cart</button>
+                            @Html.ActionLink("Check out","Index","Cart", null,htmlAttributes: new {@class = "btn btn-primary btn-md" })
+                        }
+                    }
+                 }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('.prodvar').click(function () {
+                $.ajax({
+                    type: "POST",
+                    //url: "/User/Products/GetVariationDetails/" + $(this).attr("id"),
+                    url: "/User/Products/GetVariationDetails/",
+                    //data: {
+                    //    id:$(this).attr("id")
+                    //},
+                    data: '{ "variationId":"' + $(this).attr("id") + '","productId":"' +@Model.Product.ProductId+'"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        $('#price').replaceWith('<strong id="price">$' + response.Price + '</strong>');
+                        if (response.IsInStock) {
+                            $('#availability').replaceWith('<div class="text-success" id="availability"><Strong >In Stock</Strong></div>');
+                            $('.Qtytable').show();
+                        }
+                        else {
+                            $('#availability').replaceWith(' <div class="text-danger" id="availability"><strong>Out of Stock</Strong></div>');
+                            $('.Qtytable').hide();
+                        }
+
+                    },
+                    failure: function (response) {
+                        alert("Cannot process Your request now");
+                    },
+                    error: function (response) {
+                        alert("Cannot process Your request now");
+                    }
+                });
+            });
+        });
+        $(document).on('click', 'img', function () {
+            var imgsrc = $(this).attr('src');
+            var temp = $('.main-img').attr('src');
+            $('.main-img').attr('src', imgsrc);
+            $(this).attr('src', temp);
+        });
+        function Success(response) {
+            if (response == "")
+                alert("Please login to purchase");
+            else if (response.success == "Added") {
+                $("#cart-qty").text(response.count);
+                alert("Added successfully");
+            }
+
+        }
+    </script>
+    }
+

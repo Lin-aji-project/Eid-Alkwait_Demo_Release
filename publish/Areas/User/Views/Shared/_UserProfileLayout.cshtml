@@ -1,0 +1,91 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="@Url.Content("~/Content/User/customStyles.css")" rel="stylesheet" />
+    @RenderSection("styles", required: false)
+</head>
+<body class=" bg-light">
+    <div class="container">
+        @Html.Partial("_NavBarPartial")
+        <div class="row mt-4">
+            <div class="col-3">
+                <div class="col d-flex flex-row mb-4 bg-white p-4 shadow rounded">
+                    <img src="https://github.com/mdo.png" alt="image" width="50" height="50" class="rounded-circle">
+                    <div class="d-flex flex-column ms-3">
+                        <div><small>Hello,</small></div>
+                        <div><strong><small>@User.Identity.Name</small> </strong></div>
+                    </div>
+                </div>
+                <div class="col d-flex flex-column bg-white shadow rounded p-4">
+                    @*My Orders*@
+                    <a class="sb-sidenav-menu-heading text-decoration-none d-flex" data-bs-toggle="collapse" href="#Orders" aria-expanded="false" aria-controls="Orders">
+                        <i class="fas fa-folder-open fa-lg me-2 icon"></i>My Orders
+                        <div class="d-inline-flex ms-auto">
+                            <i class="fas fa-angle-down fa-lg icon-arrow"></i>
+                        </div>
+                    </a>
+                    <div class="collapse ms-3" id="Orders">
+                        <div class="ms-3">
+                            <a class="nav-link" href="~/User/Orders">Orders</a>
+                        </div>
+                    </div>
+                    <br />
+                    @*ACCOUNT SETTINGS*@
+                    <a class="sb-sidenav-menu-heading text-decoration-none d-flex" data-bs-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
+                        <i class="fas fa-cog  fa-lg me-2 icon"></i>ACCOUNT SETTINGS
+                        <div class="d-inline-flex ms-auto">
+                            <i class="fas fa-angle-down fa-lg icon-arrow"></i>
+                        </div>
+                    </a>
+                    <div class="collapse ms-3" id="settings">
+                        <div class="ms-3">
+                            @Html.ActionLink("My Profile", "Index", "Customer", new { Area = "User" }, htmlAttributes: new { @class = "nav-link" })
+                            @Html.ActionLink("Password", "ChangePassword", "Manage", new { Area = "" }, htmlAttributes: new { @class = "nav-link" })
+                            @Html.ActionLink("Manage Address", "Address", "Customer", new { Area = "User" }, htmlAttributes: new { @class = "nav-link" })
+                        </div>
+                    </div>
+                    <br />
+                    @*My stuffs*@
+                    <a class="sb-sidenav-menu-heading text-decoration-none d-flex" data-bs-toggle="collapse" href="#stuffs" aria-expanded="false" aria-controls="stuffs">
+                        <i class="fas fa-id-card fa-lg me-2 icon"></i>
+                        My Stuffs
+                        <div class="d-inline-flex ms-auto">
+                            <i class="fas fa-angle-down fa-lg icon-arrow"></i>
+                        </div>
+                    </a>
+                    <div class="collapse ms-3" id="stuffs">
+                        <div class="ms-3">
+                            @Html.ActionLink("My Wishlists", "Details", null, htmlAttributes: new { @class = "nav-link" })
+                            @Html.ActionLink("Notifications", "Details", null, htmlAttributes: new { @class = "nav-link" })
+                        </div>
+                    </div>
+                    <br />
+                    <a class="sb-sidenav-menu-heading text-decoration-none"  href="javascript:document.getElementById('logoutForm').submit()"><i class="fas fa-power-off  fa-lg me-2 icon"></i>Logout</a>
+
+                </div>
+
+            </div>
+            <div class="col">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $("#cart-qty").text(@Session["cartcount"]);
+        });
+    </script>
+</body>
+</html>

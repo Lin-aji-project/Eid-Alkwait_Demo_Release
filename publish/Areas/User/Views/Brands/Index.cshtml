@@ -1,0 +1,21 @@
+﻿@using Eid_AL_Kuwait.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        @foreach (var brand in ViewBag.brandList)
+        {
+            var imgsrc = String.Format("data:image/gif;base64,{0}", brand.ImageFileContent != null ? brand.ImageFileContent : " ");
+            var name = String.Format(brand.BrandName);
+            <div class="col-2 mb-5" style="text-align:center">
+                @Html.ImageActionLinkWithName((string)name, "GetProducts", "Brands", new { id = brand.BrandId }, new { style = "height: 150px; width:150px;" }, (string)imgsrc)
+            </div>
+        }
+
+    </div>
+</div>
+
+

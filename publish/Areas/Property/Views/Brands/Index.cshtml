@@ -1,0 +1,79 @@
+﻿@model Eid_AL_Kuwait.Areas.Property.Data.Products.Brand
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Property/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mt-5 container-fluid">
+    <div class="row">
+        <div class="col-4">
+            @using (Html.BeginForm("Create", "Brands", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Add Brand</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BrandName, htmlAttributes: new { @class = "form-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BrandName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BrandName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ImageFileContent, htmlAttributes: new { @class = "form-label" })
+                        <div class="col-md-10">
+                            <input class="form-control" type="file" id="imgFile" name="imgFile">
+                            @Html.ValidationMessageFor(model => model.ImageFileContent, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="mt-2 form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                            @Html.ActionLink("Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-secondary" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col" style="overflow: scroll; height: 700px">
+            <table class="table table-bordered table-striped mb-0" id="BrandTbl">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col-1">#</th>
+                        <th scope="col" class="col-8">Brand</th>
+                        <th scope="col" class="col-3"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var b in ViewBag.brandList)
+                    {
+                        <tr>
+                            <th scope="row">@b.BrandId</th>
+                            <td>@b.BrandName</td>
+                            <td style="text-align:center">
+                                @*@Html.ActionLink("Details", "Details", "Brands", new { id = b.BrandId }, new { @class = "btn btn-outline-info" })*@
+                                @Html.ActionLink("Edit", "Edit", "Brands", new { id = b.BrandId }, new { @class = "btn btn-outline-success me-3" })
+                                @Ajax.ActionLink("Delete", "Delete", "Brands", new { id = b.BrandId }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "window.location.reload()"@*, Confirm = "Are you sure you want to delete ?"*@ }, new { @class = "btn btn-outline-danger" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $('table.table').DataTable();
+        });
+    </script>
+}
+

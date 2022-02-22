@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Eid_AL_Kuwait.Areas.User.Dto.ShoppingCart.OrderDetailsDto>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/User/Views/Shared/_UserProfileLayout.cshtml";
+}
+@if (Model.Count() != 0)
+{
+    foreach (var orderitem in Model)
+    {
+        var imgsrc = String.Format("data:image/gif;base64,{0}", (orderitem.Product.ImageFileContent != null ? orderitem.Product.ImageFileContent : " "));
+        <div class="border border-default w-100 h-auto bg-white mt-3 rounded-2 shadow">
+            <div class="row  p-2">
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-sm-2 m-2">
+                            <img src="@imgsrc" class="img-thumbnail" style="height: 100px; width:100px;" />
+                        </div>
+                        <div class="col-5 align-self-center">
+                            <div class="col d-flex justify-content-start">
+                                <p class="text-muted" style="line-height:15px;">
+                                    @Html.ActionLink(@orderitem.Product.ProductName, "Details", "Products", new { Area = "User", Id = orderitem.ProductId }, new { @class = "text-decoration-none" })
+                                    <br />
+                                    <span style="font-size:small">@orderitem.ProductVariation</span>
+
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col m-auto d-flex justify-content-md-center">
+                            <div class="row g-1" style="font-size: small; font-style:italic">
+                                <div class="col-6">
+                                    <div>Buying Price</div>
+                                </div>
+                                <div class="col-6">
+                                    <div>$ @orderitem.BuyingPrice</div>
+                                </div>
+                                <div class="col-6">
+                                    <div>Quantity</div>
+                                </div>
+                                <div class="col-6">
+                                    <div>@orderitem.BuyingQuantity</div>
+                                </div>
+                                @*<div class="col-6">
+                                    <div>Out For Delivery</div>
+                                </div>
+                                <div class="col-6">
+                                    <div>Ordered</div>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 align-self-center">
+                    <div class="row g-1" style="font-size: small; font-weight: bold">
+                        <div class="col-3">
+                            <div>Total</div>
+                        </div>
+                        <div class="col-9">
+                            <div>$ @{ var Total = orderitem.BuyingQuantity * @orderitem.BuyingPrice;} @Total</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+}
+

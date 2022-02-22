@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Property/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mt-5 container-fluid">
+    <div class="row">
+        <div class="col-12">
+            @Html.ActionLink("Add Product", "Create", "Products", null, new { @class = "btn btn-outline-primary mt-3 mb-3" })
+        </div>
+        <div class="col" style="overflow: scroll;">
+            @*<h3>Products</h3>*@
+            <hr />
+            <table class="table table-bordered table-striped mb-0" id="ProdTbl">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col-1">#</th>
+                        <th scope="col" class="col-5">Product Names</th>
+                        <th scope="col" class="col-6"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in ViewBag.productlist)
+                    {
+                        <tr>
+                            <th scope="row">@p.ProductId</th>
+                            <td>@p.ProductName</td>
+                            <td class="justify-content-end align-self-center">
+                                @Html.ActionLink("Add variation", "Index", "Variations", new { id = p.ProductId }, new { @class = "btn btn-outline-info offset-1" })
+                                @Html.ActionLink("Category Map", "CategMap", "Products", new { id = p.ProductId }, new { @class = "btn btn-outline-warning offset-1" })
+                                @Html.ActionLink("Edit", "Edit", "Products", new { id = p.ProductId }, new { @class = "btn btn-outline-success offset-1" })
+                                <!--No deleting allowed because foreign key violation-->
+                                @*@Ajax.ActionLink("Delete", "Delete", "Products", new { id = p.ProductId }, new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    OnSuccess = "window.location.reload()",
+                                    Confirm = "Are you sure you want to delete ?"
+                                }, new { @class = "btn btn-outline-danger offset-1" })*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('table.table').DataTable();
+        });
+    </script>
+}

@@ -1,0 +1,45 @@
+﻿@model Eid_AL_Kuwait.Areas.Property.Data.Products.Brand
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Property/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Edit", "Brands", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <h4>Brand</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.BrandId)
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.BrandName, htmlAttributes: new { @class = "form-label" })
+                @Html.EditorFor(model => model.BrandName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BrandName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ImageFileContent, "Image", htmlAttributes: new { @class = "form-label" })
+                <input class="form-control" type="file" id="imgFile" name="imgFile">
+                @Html.ValidationMessageFor(model => model.ImageFileContent, "", new { @class = "text-danger" })
+            </div>
+            <div class="mt-2 form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    @Html.ActionLink("Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-outline-secondary" })
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            @{
+                var imgsrc = String.Format("data:image/gif;base64,{0}", (Model.ImageFileContent != null ? Model.ImageFileContent : " "));
+                <div class="col">
+                    <img style="height: 400px; width:400px;" src="@imgsrc" class="img-thumbnail offset-1" alt="Delete" />
+                </div>
+            }
+        </div>
+    </div>
+}
+

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Eid_AL_Kuwait.Areas.Property.Data.Products.ProductVariation>
+
+<table class="table table-bordered table-striped mb-0" id="ProdTbl">
+    <thead>
+        <tr>
+            <th scope="col" class="col-auto">@Html.DisplayNameFor(model => model.ProductVariationName)</th>
+            <th scope="col" class="col-auto">@Html.DisplayNameFor(model => model.ProductVariationValue)</th>
+            <th scope="col" class="col-auto">@Html.DisplayNameFor(model => model.RetailPrice)</th>
+            <th scope="col" class="col-auto">@Html.DisplayNameFor(model => model.WholeSalePrice)</th>
+            <th scope="col" class="col-auto">@Html.DisplayNameFor(model => model.Quantity)</th>
+            <th scope="col" class="col-auto">@Html.DisplayNameFor(model => model.IsInStock)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in Model)
+        {
+            <tr>
+                <th scope="row">@v.ProductVariationName</th>
+                <td>@v.ProductVariationValue</td>
+                <td>@v.RetailPrice</td>
+                <td>@v.WholeSalePrice</td>
+                <td>@v.Quantity</td>
+                @{ var stock = v.IsInStock ? "Yes" : "No";}
+                <td>@stock</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Variations", new { id = v.ProductVariationId, productId = v.ProductId }, new { @class = "btn btn-outline-success" })
+                    @Ajax.ActionLink("Delete", "Delete", "Variations", new { id = v.ProductVariationId, productId = v.ProductId }, new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        UpdateTargetId = "VarList",
+                        OnFailure = "Failed",
+                        OnSuccess = "window.location.reload()"@*,Confirm = "Are you sure you want to delete ?"*@}, new { @class = "btn btn-outline-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

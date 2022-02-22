@@ -1,0 +1,176 @@
+﻿@model IEnumerable<Eid_AL_Kuwait.Areas.User.Dto.ShoppingCart.CartItemDto>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int listrow = 1;
+}
+
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-9">
+            <div class="card">
+                <h5 class="card-header">Cart</h5>
+                @if (Model.Count() != 0)
+                {
+                    <div class="card-body">
+                        <table class="table table-borderless" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="col-2">Image</th>
+                                    <th scope="col" class="col-auto">Product Details</th>
+                                    <th scope="col" class="col-sm-2">Qty</th>
+                                    <th scope="col" class="text-right col-sm-2">Total</th>
+                                    <th scope="col" class="col-1">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    var imgsrc = String.Format("data:image/gif;base64,{0}", item.Product.ImageFileContent != null ? item.Product.ImageFileContent : " ");
+                                    var Price = item.Price * item.Quantity;
+                                    <tr>
+                                        <td class="align-middle">
+                                            <img src="@imgsrc" class="img-thumbnail" style="height: 100px; width:100px" alt="product">
+                                        </td>
+                                        <td style="text-align:left">
+                                            @Html.ActionLink(@item.Product.Name, "Details", "Products", new { @id = @item.ProductId }, null)
+                                            <div style="line-height: 0.5cm"><small>@item.Product.UnitName<br /> @item.Product.Variation<br /> Price:$@item.Price</small></div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <div class="form-group mb-0">
+                                                <input type="number" class="form-control cart-qty" min="1" name="cartQty" item-id="@item.CartItemId" row-id="@listrow" value="@item.Quantity">
+                                            </div>
+                                        </td>
+                                        <td class="text-right align-middle" id="@listrow">$<span class="TotalPrices">@Price</span> </td>
+                                        <td class=" align-middle">
+                                            <a href="" onclick="remove(@item.CartItemId);" class="text-danger">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    listrow++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-body" style="text-align:center">
+                        <i class="fas fa-exclamation-triangle fa-8x" style="color:lightgrey;"></i>
+                        <p><strong>No Items in your cart</strong></p>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+        @if (Model.Count() != 0)
+        {
+            <div class="col-3">
+                <div class="card">
+                    <h5 class="card-header">Payment</h5>
+                    <div class="card-body">
+                        <table class="table table-borderless table-responsive">
+                            <tbody>
+                                <tr>
+                                    <td>Sub Total :</td>
+                                    <td>$<span id="subtotal">@ViewBag.subtotal</span> </td>
+                                </tr>
+                                <tr>
+                                    <td>Shipping :</td>
+                                    <td>$<span id="shippingcost">0.00</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Tax(18%) :</td>
+                                    <td>$<span id="tax">@ViewBag.tax</span></td>
+                                </tr>
+                                <tr class="f-w-7 font-18">
+                                    <td>
+                                        <strong>Amount :</strong>
+                                    </td>
+                                    <td>
+                                        <strong>$<span id="total">@ViewBag.total</span></strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a href="/User/Payments/SelectAddress" class="btn btn-success mx-1 w-100">
+                            Proceed to Checkout  <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $('.cart-qty').keypress(function (event) {
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode == '13') {
+                $.ajax({
+                    type: "POST",
+                    url: "/User/Cart/UpdateCartItem/",
+                    data: '{ "id":"' + $(this).attr("item-id") + '","quantity":"' + $(this).val() + '","row":"' + $(this).attr("row-id") + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var id = '#' + response.row;
+                        $(id).replaceWith('<td class="text-right align-middle" id="' + response.row + '">$<span class="TotalPrices">' + response.price + '</span></td>');
+                        SumTotal();
+                    },
+                    failure: function (response) {
+                        alert("Cannot process Your request now");
+                        SumTotal();
+                    },
+                    error: function (response) {
+                        alert("Cannot process Your request now");
+                        SumTotal();
+                    }
+                });
+            }
+        });
+        function SumTotal() {
+            var total = 0,subtotal=0;
+            $('.TotalPrices').each(function () {
+                subtotal += parseFloat(this.innerHTML);
+            })
+            $('#subtotal').text(subtotal);
+            total = subtotal + tax(subtotal);
+            $('#tax').text(tax(subtotal));
+            $('#total').text(total);
+
+        }
+        function tax(subtotal) {
+            var tax = (subtotal * 18) / 100;
+            return tax;
+        }
+        function remove(id) {
+            $.ajax({
+                type: "POST",
+                url: "/User/Cart/DeleteCartItem/",
+                data: '{ "id":"' + id + '"}',
+                //data: '{ "id":"' + $(this).attr("item-id") + '","quantity":"' + id + '","row":"' + $(this).attr("row-id") + '"}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.success == "deleted") {
+                        alert("Item removed from cart");
+                    }
+                    else {
+                        alert("Cannot process Your request now");
+                    }
+
+                },
+                error: function (response) {
+                    alert("Cannot process Your request now");
+                    SumTotal();
+                }
+            });
+        }
+    </script>
+}

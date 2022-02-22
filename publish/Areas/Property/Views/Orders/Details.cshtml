@@ -1,0 +1,115 @@
+﻿@model Eid_AL_Kuwait.Areas.Property.Data.ShoppingCart.Order
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Property/Views/Shared/_Layout.cshtml";
+}
+<div class="container bg-white">
+    <div class="row mt-5 p-3 shadow">
+        <div class="col-4">
+            <strong>Delivery Address</strong>
+            <strong>@Model.Name</strong>
+            <p>@Model.Address<br />
+            @{
+                IHtmlString address = string.IsNullOrEmpty(Model.Landmark)?Html.Raw(""): Html.Raw(Model.Landmark+"<br/>");
+                address = string.IsNullOrEmpty(Model.Locality) ? Html.Raw("") : Html.Raw(address + Model.Locality + "<br/>");
+                address = string.IsNullOrEmpty(Model.City) ? Html.Raw("") : Html.Raw(address + Model.City + "<br/>");
+                IHtmlString mobileNumber = string.IsNullOrEmpty(Model.AlternateMobileNumber) ? Html.Raw(Model.MobileNumber) : Html.Raw(Model.MobileNumber + ", " + @Model.AlternateMobileNumber);
+              }
+            @address
+            </p>
+            <strong>Mobile Number</strong>
+            <p>@mobileNumber</p>
+        </div>
+        <div class="col-4 d-flex align-items-center">
+            @using (Html.BeginForm("UpdateStatus", "Orders", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-9">
+                        @* @Html.LabelFor(model => model., htmlAttributes: new { @class = "form-label" })*@
+                        @Html.DropDownList("Status", ViewBag.statusList as List<SelectListItem>, new Dictionary<string, object> { { "class", "form-control" }, { "style", "-webkit-appearance:menulist" } })
+                        @*@Html.ValidationMessageFor(model => model.Product.UnitId, "", new { @class = "text-danger" })*@
+                    </div>
+                    <div class="col-3">
+                        @Html.HiddenFor(model => model.OrderId)
+                        <button type="submit" class="btn btn-outline-primary me-5">Update</button>
+                    </div>
+                </div>
+
+            }
+        </div>
+        <div class="col-4 d-flex align-items-center">
+            <div class="row">
+                <div class="col-9"><strong>Download Invoice</strong></div>
+                <div class="col-3"><button class="btn btn-outline-warning text-end">Download</button></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @if (Model.OrderDetails.Count() != 0)
+        {
+            foreach (var orderitem in Model.OrderDetails)
+            {
+                var imgsrc = String.Format("data:image/gif;base64,{0}", (orderitem.Product.ImageFileContent != null ? orderitem.Product.ImageFileContent : " "));
+                <div class="border border-default w-100 h-auto bg-white mt-3 rounded-2">
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="row">
+                                <div class="col-sm-2 m-2">
+
+                                    <img src="@imgsrc" style="height: 100px; width:100px;" />
+                                </div>
+                                <div class="col-5 align-self-center">
+                                    <div class="col d-flex justify-content-center">
+                                        <p class="text-muted" style="line-height:15px;">
+                                            @Html.ActionLink(@orderitem.Product.ProductName, "Details", "Products", new { Area = "User", Id = orderitem.ProductId }, new { @class = "text-decoration-none" })
+                                            <br />
+                                            <span style="font-size:small">@orderitem.ProductVariation</span>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col m-auto d-flex justify-content-md-center">
+                                    <div class="row g-1" style="font-size: small; font-style:italic">
+                                        <div class="col-6">
+                                            <div>Buying Price</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div>$ @orderitem.BuyingPrice</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div>Quantity</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div>@orderitem.BuyingQuantity</div>
+                                        </div>
+                                        @*<div class="col-6">
+                                            <div>Out For Delivery</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div>Ordered</div>
+                                        </div>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 align-self-center">
+                            <div class="row g-1" style="font-size: small; font-weight: bold">
+                                <div class="col-3">
+                                    <div>Total</div>
+                                </div>
+                                <div class="col-9">
+                                    <div>$ @{ var Total = orderitem.BuyingQuantity * @orderitem.BuyingPrice;} @Total</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        }
+    </div>
+</div>
+
+

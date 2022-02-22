@@ -1,0 +1,122 @@
+﻿@model Eid_AL_Kuwait.Areas.User.Dto.ShoppingCart.AddressDto
+@{
+    ViewBag.Title = "SelectAddress";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="d-flex mt-4 row bg-light rounded p-4 ms-3 align-items-center shadow">
+            <div class="col-3 p-3 mb-3"  id="AddAddress">
+                <a href="#" class="text-decoration-none m-3 p-3" style="border:.5px solid gray;">
+                    <i class="fas fa-plus me-3" style="color:cornflowerblue"></i><span>Add a New Address</span>
+                </a>
+            </div>
+            <div class="col-6 small mb-5" style="display:none" id="AddAddressForm">
+                @using (Html.BeginForm("Address", "Customer", FormMethod.Post, new { Area = "User" }))
+                {
+                    <div class="row g-2">
+                        <div class="col-md-6 form-floating mb-3">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Name" })
+                            @Html.LabelFor(m => m.Name)
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 form-floating mb-3">
+                            @Html.TextBoxFor(m => m.MobileNumber, new { @class = "form-control", placeholder = "MobileNumber" })
+                            @Html.LabelFor(m => m.MobileNumber)
+                            @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 form-floating mb-3">
+                            @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control", placeholder = "Pincode" })
+                            @Html.LabelFor(m => m.Pincode)
+                            @Html.ValidationMessageFor(model => model.Pincode, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 form-floating mb-3">
+                            @Html.TextBoxFor(m => m.Locality, new { @class = "form-control", placeholder = "Locality" })
+                            @Html.LabelFor(m => m.Locality)
+                            @Html.ValidationMessageFor(model => model.Locality, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-floating">
+                            @Html.TextAreaFor(m => m.Address, new { @class = "form-control", placeholder = "Address (Area and Street)", style = "height: 100px" })
+                            @Html.LabelFor(m => m.Address)
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 form-floating mb-3">
+                            @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "City" })
+                            @Html.LabelFor(m => m.City)
+                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 form-floating mb-3">
+                            @Html.TextBoxFor(m => m.State, new { @class = "form-control", placeholder = "State" })
+                            @Html.LabelFor(m => m.State)
+                            @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 form-floating mb-3">
+                            @Html.TextBoxFor(m => m.Landmark, new { @class = "form-control", placeholder = "Landmark" })
+                            @Html.LabelFor(m => m.Landmark)
+                            @Html.ValidationMessageFor(model => model.Landmark, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 form-floating mb-3">
+                            @Html.TextBoxFor(m => m.AlternateMobileNumber, new { @class = "form-control", placeholder = "Alternate Mobile Number (Optional)" })
+                            @Html.LabelFor(m => m.AlternateMobileNumber)
+                            @Html.ValidationMessageFor(model => model.AlternateMobileNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <input type="submit" class="btn btn-primary me-3 col-6" value="Add Address" />
+                        <a href="#" class="text-decoration-none" id="cancel"><b>CANCEL</b></a>
+                    </div>
+                }
+
+            </div>
+
+            <div class="offset-1 col-6">
+                @{
+                    using (Html.BeginForm("PlaceOrder", "Payments", FormMethod.Post,new { Area = "User"}))
+                    {
+                        @Html.AntiForgeryToken()
+                        foreach (var address in ViewBag.addressList)
+                        {
+                            <div class="row d-flex pt-3">
+                                <div class="col-10">
+                                    <strong>@address.Name  &nbsp;&nbsp;   @address.MobileNumber</strong>
+                                    <p>@address.Address <span><strong>@address.Pincode</strong></span></p>
+                                </div>
+                                <div class="col-2">
+                                    @Html.RadioButtonFor(a => a.Id, (int)address.Id)
+                                </div>
+                            </div>
+                            <hr />
+                        }
+                        <div class="col-12 text-end">
+                            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                            <input type="submit" value="Proceed" class="btn btn-warning" />
+                        </div>
+
+                    }
+                }
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#AddAddress").click(function () {
+                $("#AddAddress").hide();
+                $("#AddAddressForm").show();
+            });
+            $("#cancel").click(function () {
+                $("#AddAddress").show();
+                $("#AddAddressForm").hide();
+            });
+        });
+    </script>
+
+}
+
