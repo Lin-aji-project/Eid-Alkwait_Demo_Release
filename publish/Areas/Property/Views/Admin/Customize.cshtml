@@ -1,0 +1,148 @@
+﻿@model Eid_AL_Kuwait.ViewModel.NewItemViewmodel
+@{
+    ViewBag.Title = "Customize";
+    Layout = "~/Areas/Property/Views/Shared/_Layout.cshtml";
+    var catactive = string.IsNullOrEmpty(Model.Item)? " show active":" ";
+    var brandactive = " ";
+    var prodactive = " ";
+}
+
+@switch (Model.Item)
+{
+    case "Category":
+        catactive = " show active";
+        break;
+    case "Brand":
+        brandactive = " show active";
+        break;
+    case "Product":
+        prodactive = " show active";
+        break;
+}
+
+<div class="container mt-3">
+    <nav>
+        <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+            <button class="nav-link @catactive" id="nav-categ-tab" data-bs-toggle="tab" data-bs-target="#nav-categ" type="button" role="tab" aria-controls="nav-categ" aria-selected="true">Category</button>
+            <button class="nav-link @brandactive" id="nav-brand-tab" data-bs-toggle="tab" data-bs-target="#nav-brand" type="button" role="tab" aria-controls="nav-brand" aria-selected="false">Brand</button>
+            <button class="nav-link @prodactive" id="nav-prod-tab" data-bs-toggle="tab" data-bs-target="#nav-prod" type="button" role="tab" aria-controls="nav-prod" aria-selected="false">Product</button>
+        </div>
+    </nav>
+    <div class="tab-content mb-1" id="nav-tabContent">
+        <div class="tab-pane fade show @catactive" id="nav-categ" role="tabpanel" aria-labelledby="nav-categ-tab">
+            <div class="row">
+                <div class="col">
+                    @using (Html.BeginForm("Customize", "Admin", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Category Name</th>
+                                    <th>Index</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 1; i <= Model.Categories.Count; i++)
+                                {
+                                    <tr>
+                                        <td> @i @Html.HiddenFor(c => c.Categories[i - 1].CategoryId)</td>
+                                        <td>@Model.Categories[i - 1].CategoryName @Html.HiddenFor(c => c.Categories[i - 1].CategoryName)</td>
+                                        <td>@Html.CheckBoxFor(c => c.Categories[i - 1].NewCategoryIndicator)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @Html.HiddenFor(c => c.Item, new { Value = "Category" })
+                        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade @brandactive" id="nav-brand" role="tabpanel" aria-labelledby="nav-brand-tab">
+            <div class="row">
+                <div class="col">
+                    @using (Html.BeginForm("Customize", "Admin", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <table class="table table-bordered table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Brand Name</th>
+                                    <th>Index</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 1; i <= Model.Brands.Count; i++)
+                                {
+                                    <tr>
+                                        <td> @i @Html.HiddenFor(c => c.Brands[i - 1].BrandId)</td>
+                                        <td>@Model.Brands[i - 1].BrandName @Html.HiddenFor(c => c.Brands[i - 1].BrandName)</td>
+                                        <td>@Html.CheckBoxFor(c => c.Brands[i - 1].NewBrandIndicator)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @Html.HiddenFor(c => c.Item, new { Value = "Brand" })
+                        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade @prodactive" id="nav-prod" role="tabpanel" aria-labelledby="nav-prod-tab">
+            <div class="row">
+                <div class="col">
+                    @using (Html.BeginForm("Customize", "Admin", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <table class="table table-bordered table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Product Name</th>
+                                    <th>Index</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 1; i <= Model.Products.Count; i++)
+                                {
+                                    <tr>
+                                        <td> @i @Html.HiddenFor(c => c.Products[i - 1].ProductId)</td>
+                                        <td>@Model.Products[i - 1].ProductName @Html.HiddenFor(c => c.Products[i - 1].ProductName)</td>
+                                        <td>@Html.CheckBoxFor(c => c.Products[i - 1].NewProductIndicator)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @Html.HiddenFor(c => c.Item, new { Value = "Product" })
+                        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.ValidationMessageFor(model => model.Item, "", new { @class = "text-danger" })
+</div>
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $('#submit').click(function () {
+                $('input[type=search]').val('');
+                var oTable = $('table.table').DataTable();
+                oTable.search('').draw();
+                oTable.page.len(-1).draw();
+            });
+            $('table.table').DataTable({
+                "aLengthMenu": [[10, 25, 50, 75, -1], [10, 25, 50, 75, "All"]],
+                "iDisplayLength": 10
+            });
+
+
+        });
+
+    </script>
+}

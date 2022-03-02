@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row d-flex justify-content-center">
         <div class="d-flex mt-4 row bg-light rounded p-4 ms-3 align-items-center shadow">
-            <div class="col-3 p-3 mb-3"  id="AddAddress">
+            <div class="col-3 p-3 mb-3" id="AddAddress">
                 <a href="#" class="text-decoration-none m-3 p-3" style="border:.5px solid gray;">
                     <i class="fas fa-plus me-3" style="color:cornflowerblue"></i><span>Add a New Address</span>
                 </a>
@@ -69,34 +69,48 @@
                 }
 
             </div>
+            @{
+                if (ViewBag.addressList.Count > 0)
+                {
+                    <div class="offset-1 col-6">
+                        @{
+                            using (Html.BeginForm("PlaceOrder", "Payments", FormMethod.Post, new { Area = "User" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                foreach (var address in ViewBag.addressList)
+                                {
+                                    <div class="row d-flex pt-3">
+                                        <div class="col-10">
+                                            <strong>@address.Name  &nbsp;&nbsp;   @address.MobileNumber</strong>
+                                            <p>@address.Address <span><strong>@address.Pincode</strong></span></p>
+                                        </div>
+                                        <div class="col-2">
+                                            @Html.RadioButtonFor(a => a.Id, (int)address.Id)
+                                        </div>
+                                    </div>
+                                    <hr />
+                                }
+                                <div class="col-12 text-end">
+                                    @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                                    <input type="submit" value="Proceed" class="btn btn-warning" />
+                                </div>
 
-            <div class="offset-1 col-6">
-                @{
-                    using (Html.BeginForm("PlaceOrder", "Payments", FormMethod.Post,new { Area = "User"}))
-                    {
-                        @Html.AntiForgeryToken()
-                        foreach (var address in ViewBag.addressList)
-                        {
-                            <div class="row d-flex pt-3">
-                                <div class="col-10">
-                                    <strong>@address.Name  &nbsp;&nbsp;   @address.MobileNumber</strong>
-                                    <p>@address.Address <span><strong>@address.Pincode</strong></span></p>
-                                </div>
-                                <div class="col-2">
-                                    @Html.RadioButtonFor(a => a.Id, (int)address.Id)
-                                </div>
-                            </div>
-                            <hr />
+                            }
                         }
-                        <div class="col-12 text-end">
-                            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
-                            <input type="submit" value="Proceed" class="btn btn-warning" />
-                        </div>
 
-                    }
+                    </div>
                 }
+                else
+                {
+                    <div class="offset-1 col-6">
+                        <div class="col-12 text-center">
+                            <strong class="text-danger">Please add a new address</strong>
+                        </div>
+                    </div>
+                }
+            }
 
-            </div>
+
         </div>
 
 

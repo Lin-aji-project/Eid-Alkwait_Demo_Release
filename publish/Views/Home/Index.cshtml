@@ -1,48 +1,206 @@
-﻿@{
+﻿@using Eid_AL_Kuwait.Models;
+@{
     ViewBag.Title = "Home Page";
 }
 
-@*
-<!-- Top Products-->
-<div id="carouselExampleFade" class="carousel slide carousel-fade mt-5" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <div class="row w-75" style="margin:0 auto;">
-                @for (int i = 0; i < 3; i++)
-                {
+<div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
 
-                    var imgsrc = String.Format("data:image/gif;base64,{0}", ViewBag.List[i].ImageFileContent != null ? ViewBag.List[i].ImageFileContent : " ");
-
-                    <div class="col-2 gx-5" style="text-align:center">
-                        <div class="row">
-                            <div class="col">
-                                <img style="height: 200px;width:200px;" src="@imgsrc" class="img-thumbnail" />
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-        <div class="carousel-item">
-            <div class="row w-75" style="margin:0 auto;">
-                @for (int i = 3; i < 5; i++)
-                {
-
-                    var imgsrc = String.Format("data:image/gif;base64,{0}", ViewBag.List[i].ImageFileContent != null ? ViewBag.List[i].ImageFileContent : " ");
-                    <div class="col-2 gx-5" style="text-align:center">
-                        <div class="row">
-                            <div class="col">
-                                <img style="height: 200px;width:200px;" src="@imgsrc" class="img-thumbnail" />
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-        @*<div class="carousel-item">
-
-            </div>*
+    <!--Controls-->
+    <div class="controls-top">
+        <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fas fa-chevron-left"></i></a>
+        <a class="btn-floating" href="#multi-item-example" data-slide="next">
+            <i class="fas fa-chevron-right"></i>
+        </a>
     </div>
+    <!--/.Controls-->
+    <!--Indicators-->
+    <ol class="carousel-indicators">
+        <li data-target="#multi-item-example" data-slide-to="0" class="active"></li>
+        <li data-target="#multi-item-example" data-slide-to="1"></li>
+
+    </ol>
+    <!--/.Indicators-->
+    <!--Slides-->
+    <div class="carousel-inner" role="listbox">
+
+        <!--First slide-->
+        <div class="carousel-item active">
+
+            <div class="col-md-3" style="float:left">
+                <div class="card mb-2">
+                    <img class="card-img-top"
+                         src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3" style="float:left">
+                <div class="card mb-2">
+                    <img class="card-img-top"
+                         src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3" style="float:left">
+                <div class="card mb-2">
+                    <img class="card-img-top"
+                         src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3" style="float:left">
+                <div class="card mb-2">
+                    <img class="card-img-top"
+                         src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--/.First slide-->
+        <!--Second slide-->
+        <div class="carousel-item">
+
+            <div class="col-md-3" style="float:left">
+                <div class="card mb-2">
+                    <img class="card-img-top"
+                         src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3" style="float:left">
+                <div class="card mb-2">
+                    <img class="card-img-top"
+                         src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(47).jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3" style="float:left">
+                <div class="card mb-2">
+                    <img class="card-img-top"
+                         src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(48).jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3" style="float:left">
+                <div class="card mb-2">
+                    <img class="card-img-top"
+                         src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(47).jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">Card title</h4>
+                        <p class="card-text">
+                            Some quick example text to build on the card title and make up the bulk of the
+                            card's content.
+                        </p>
+                        <a class="btn btn-primary">Button</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--/.Second slide-->
+
+
+
+    </div>
+    <!--/.Slides-->
+
+</div>
+<!--/.Carousel Wrapper-->
+<!-- Top Products-->
+@*<div id="carouselExampleFade" class="carousel slide carousel-fade mt-5" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row w-75" style="margin:0 auto;">
+                    @for (int i = 0; i < 3; i++)
+                    {
+
+                        var imgsrc = String.Format("data:image/gif;base64,{0}", ViewBag.List[i].ImageFileContent != null ? ViewBag.List[i].ImageFileContent : " ");
+
+                        <div class="col-2 gx-5" style="text-align:center">
+                            <div class="row">
+                                <div class="col">
+                                    <img style="height: 200px;width:200px;" src="@imgsrc" class="img-thumbnail" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row w-75" style="margin:0 auto;">
+                    @for (int i = 3; i < 5; i++)
+                    {
+
+                        var imgsrc = String.Format("data:image/gif;base64,{0}", ViewBag.List[i].ImageFileContent != null ? ViewBag.List[i].ImageFileContent : " ");
+                        <div class="col-2 gx-5" style="text-align:center">
+                            <div class="row">
+                                <div class="col">
+                                    <img style="height: 200px;width:200px;" src="@imgsrc" class="img-thumbnail" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            @*<div class="carousel-item">
+
+                </div>*
+        </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
         <i class="fas fa-angle-left fa-3x" style="color:grey"></i>
         <span class="visually-hidden">Previous</span>
@@ -51,43 +209,63 @@
         <i class="fas fa-angle-right fa-3x" style="color:grey"></i>
         <span class="visually-hidden">Next</span>
     </button>
-</div>
+    </div>*@
 <div class="container mt-5 shadow rounded-2 bg-light">
     <div class="row justify-content-center">
         <div class="col-10 m-2">
             <h4 class="pt-2 pb-2">New Categories</h4>
             <div class="row pb-4">
-                @for (int i = 0; i < 5; i++)
+                @foreach (var Category in ViewBag.Categories)
                 {
-
-                    var imgsrc = String.Format("data:image/gif;base64,{0}", ViewBag.List[i].ImageFileContent != null ? ViewBag.List[i].ImageFileContent : " ");
-                    <div class="col-2 gx-5" style="text-align:center">
-                        <img style="height: 150px;width:150px;" src="@imgsrc" class="img-thumbnail p-3 bg-white border-1 rounded shadow" />
+                    var imgsrc = String.Format("data:image/gif;base64,{0}", !String.IsNullOrEmpty(Category.ImageFileContent) ? Category.ImageFileContent : " ");
+                    <div class="col-2 gx-2" style="text-align:center">
+                        @Html.ImageActionLinkWithName((string)Category.CategoryName, "GetProducts", "Categories", new { area = "User", id = Category.CategoryId }, new { style = "height: 150px; width:150px;" }, (string)imgsrc, new Dictionary<string, string> { { "class", "img-thumbnail p-1 border-1 rounded shadow" } })
                     </div>
                 }
             </div>
 
         </div>
     </div>
-
 </div>
 <div class="container mt-5 shadow rounded-2 bg-light">
     <div class="row justify-content-center">
         <div class="col-10 m-2">
             <h4 class="pt-2 pb-2">New Brands</h4>
-            <div class="row pb-4">
-                @for (int i = 0; i < 5; i++)
-                {
+            <div class="row pb-4" @*style="background-color:aliceblue"*@>
+                @*@for (int i = 0; i < 5; i++)
+                    {
 
-                    var imgsrc = String.Format("data:image/gif;base64,{0}", ViewBag.List[i].ImageFileContent != null ? ViewBag.List[i].ImageFileContent : " ");
-                    <div class="col-2 gx-5" style="text-align:center">
-                        <img style="height: 150px;width:150px;" src="@imgsrc" class="img-thumbnail p-3 bg-white border-1 rounded shadow" />
+                        var imgsrc = String.Format("data:image/gif;base64,{0}", ViewBag.List[i].ImageFileContent != null ? ViewBag.List[i].ImageFileContent : " ");
+                        <div class="col-2 gx-5" style="text-align:center">
+                            <img style="height: 150px;width:150px;" src="@imgsrc" class="img-thumbnail p-3 bg-white border-1 rounded shadow" />
+                        </div>
+                    }*@
+                @foreach (var brand in ViewBag.Brands)
+                {
+                    var imgsrc = String.Format("data:image/gif;base64,{0}", !String.IsNullOrEmpty(brand.ImageFileContent) ? brand.ImageFileContent : " ");
+                    <div class="col-2 gx-2" style="text-align:center">
+                        @Html.ImageActionLinkWithName((string)brand.BrandName, "GetProducts", "Brands", new { area = "User", id = brand.BrandId }, new { style = "height: 150px; width:150px;background-color:aliceblue;" }, (string)imgsrc, new Dictionary<string, string> { { "class", "img-thumbnail p-1 border-1 rounded shadow" } })
                     </div>
                 }
             </div>
 
         </div>
     </div>
-
 </div>
-*@
+<div class="container mt-5 shadow rounded-2 bg-light">
+    <div class="row justify-content-center">
+        <div class="col-10 m-2">
+            <h4 class="pt-2 pb-2">New Products</h4>
+            <div class="row pb-4">
+                @foreach (var product in ViewBag.Products)
+                {
+                    var imgsrc = String.Format("data:image/gif;base64,{0}", !String.IsNullOrEmpty(product.ImageFileContent) ? product.ImageFileContent : " ");
+                    <div class="col-2 gx-2" style="text-align:center">
+                        @Html.ImageActionLinkWithName((string)product.ProductName, "Details", "Products", new { area = "User", id = product.ProductId }, new { style = "height: 150px; width:150px;" }, (string)imgsrc, new Dictionary<string, string> { { "class", "img-thumbnail p-1 border-1 rounded shadow" } })
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>

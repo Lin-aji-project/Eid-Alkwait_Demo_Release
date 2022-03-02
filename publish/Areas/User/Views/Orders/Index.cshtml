@@ -15,7 +15,7 @@
 
         <div class="border border-default w-100 h-auto bg-white mt-3 p-2 rounded-2 shadow">
             <div class="row">
-                <div class="col-4 align-self-center">
+                <div class="col-3 align-self-center">
                     <div class="row">
                         <div class="col d-flex justify-content-center">
                             @{
@@ -29,19 +29,27 @@
                                         statusbadge = "badge bg-info";
                                         break;
                                     case "Out for Delivery":
-                                        statusbadge ="badge bg-black";
+                                        statusbadge = "badge bg-black";
                                         break;
                                     case "Delivered":
-                                        statusbadge ="badge bg-success";
+                                        statusbadge = "badge bg-success";
                                         break;
                                     case "Rejected":
-                                        statusbadge ="badge bg-danger";
+                                        statusbadge = "badge bg-danger";
                                         break;
                                     default:
                                         break;
                                 }
                             }
-                            @Html.ActionLink(order.Status, "Details", "Orders", new { id = order.OrderId }, new { @class = "text-decoration-none" + " "+statusbadge })
+                            @*@Html.ActionLink(order.Status, "Details", "Orders", new { id = order.OrderId }, new { @class = "text-decoration-none" + " " + statusbadge })*@
+                            <span class="@statusbadge">@order.Status</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 align-self-center">
+                    <div class="col d-flex justify-content-center">
+                        <div class="text-dark">
+                            <div class="text-black"><b>@Html.ActionLink(" ", "Details", "Orders", new { id = order.OrderId }, new { @class = "text-decoration-none fas fa-eye text-muted", title = "View Order"})</b> </div>
                         </div>
                     </div>
                 </div>
@@ -74,7 +82,7 @@
                                         <div>Delivered</div>
                                     </div>
                                     <div class="col-6">
-                                         <div>@DeliveredDate</div>
+                                        <div>@DeliveredDate</div>
                                     </div>
                                 </div>
                             </div>
@@ -86,28 +94,3 @@
     }
 
 }
-
-
-@*@Html.ActionLink(order.OrderId, "Details", "Orders", new { id = order.OrderId }, null)
-    <p>@order.TotalOrderPrice</p>
-    <p>@order.Status</p>
-    <p>@order.OrderDate</p>*@
-
-@*<div class="row">
-        <div class="col-sm-6">
-            <a href="#">
-                <div class="row">
-                    <div class="col-sm-3 m-2">
-                        <img src="\Assets\Images\canon-powershot-g3-x-sample-images-1.jpg" style="height: 100px; width:100px;" />
-                    </div>
-                    <div class="col m-auto d-flex justify-content-lg-start">
-                        <label style="font-size:10px;" class="lh-lg">Productname(Honor 7A (Gold, 32 GB)) <br /> Color: ()<br />Seller: ()<br />$.Amount</label>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-6 m-auto d-flex justify-content-center">
-            <label style="font-size:10px;" class="lh-lg">Delivered date <br />you item has been (shipped\deliverd)<br /><a href="#"><i class="fas fa-star fa-lg me-2 icon">Rate and Review Product</i></a></label>
-        </div>
-    </div>*@
-
