@@ -1,4 +1,5 @@
-﻿<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light mb-3">
+﻿@*<nav class="navbar navbar-expand-sm fixed-top navbar-light bg-light mb-3 bg-black">  *@
+<nav class="navbar navbar-expand-sm navbar-expand-lg fixed-top bg-black">
     <div class="container-fluid">
         <a class="navbar-brand ms-2" href="@Url.Action("Index","Home",new { Area = "" })">
             <img src="~/Content/Images/logo.jpg" width="30" height="30" />
@@ -6,19 +7,23 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 @*<li class="nav-item">
-                    @Html.ActionLink(" ", "Index", "Home", new { Area = "" }, new { @class = "nav-link active fas fa-home mt-1", aria_current = "page"})
-                </li>*@
+                        @Html.ActionLink(" ", "Index", "Home", new { Area = "" }, new { @class = "nav-link active fas fa-home mt-1", aria_current = "page"})
+                    </li>*@
                 <li class="nav-item">
-                    @Html.ActionLink("Category", "Index", "Categories", new { Area = "User" }, new { @class = "nav-link" })
+                    @Html.ActionLink("Category", "Index", "Categories", new { Area = "User" }, new { @class = "nav-link text-white" })
                 </li>
                 <li class="nav-item">
-                    @Html.ActionLink("Brand", "Index", "Brands", new { Area = "User" }, new { @class = "nav-link" })
+                    @Html.ActionLink("Brand", "Index", "Brands", new { Area = "User" }, new { @class = "nav-link text-white" })
                 </li>
                 <li class="nav-item">
-                    @Html.ActionLink("Product", "Index", "Products", new { Area = "User" }, new { @class = "nav-link" })
+                    @Html.ActionLink("Product", "Index", "Products", new { Area = "User" }, new { @class = "nav-link text-white" })
                 </li>
+
+                @Html.ActionLink("About", "about", "Home", new { Area = "" }, new { @class = "nav-link text-white" })
+                @Html.ActionLink("Contact", "contact", "Home", new { Area = "" }, new { @class = "nav-link text-white" })
             </ul>
             @Html.Partial("_LoginPartial")
         </div>
     </div>
 </nav>
+

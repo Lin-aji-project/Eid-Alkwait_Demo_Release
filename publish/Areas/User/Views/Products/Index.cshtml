@@ -10,7 +10,7 @@
         {
             var imgsrc = String.Format("data:image/gif;base64,{0}", product.ImageFileContent != null ? product.ImageFileContent : " ");
             var name = String.Format(product.ProductName);
-            <div class="col-2 mb-5" style="text-align:center">
+            <div class="col-lg-2 col-md-3 col-sm-4 mb-3" style="text-align:center">
                 @Html.ImageActionLinkWithName((string)name, "Details", "Products", new { id = product.ProductId }, new { style = "height: 150px; width:150px;" }, (string)imgsrc)
             </div>
         }

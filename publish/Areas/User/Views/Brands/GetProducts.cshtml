@@ -21,7 +21,8 @@
                 </div>
                 <div class="row">
                     <div class="col-12" style="text-align:center">
-                        <h6>$ @product.Variation.RetailPrice / @product.Product.UnitName</h6>
+                        <h6>$ @product.Variation.RetailPrice / @product.Product.UnitName
+                        <br /><span class="text-muted"><small>@product.Variation.ProductVariationName - @product.Variation.ProductVariationValue</small></span></h6>
                     </div>
 
                     @using (Ajax.BeginForm("AddToCart", "Cart", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "Success" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))

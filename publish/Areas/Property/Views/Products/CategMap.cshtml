@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "CategMap";
     Layout = "~/Areas/Property/Views/Shared/_Layout.cshtml";
+    var rowNumber = 1;
 }
 <div class="row">
     <div class="col-3">
@@ -14,7 +15,7 @@
                 @Html.HiddenFor(model => model.Product.ProductId)
             </div>
             <div class="mb-2">
-                @Html.LabelFor(model => model.CategoryId,"Category", htmlAttributes: new { @class = "form-label" })
+                @Html.LabelFor(model => model.CategoryId, "Category", htmlAttributes: new { @class = "form-label" })
                 @Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.Categories, "CategoryId", "CategoryName"), "Select The Category", new Dictionary<string, object> { { "class", "form-control" }, { "style", "-webkit-appearance:menulist" } })
                 <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                 @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
@@ -36,16 +37,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var product in Model.Product.Category )
-                        {
-                            <tr>
-                                <th scope="row">@product.CategoryId</th>
-                                <td>@product.CategoryName</td>
-                                <td>
-                                    @Ajax.ActionLink("Delete", "DeleteCategMap", "Products", new {ProductId = Model.Product.ProductId, CategoryId = @product.CategoryId }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "window.location.reload()" }, new { @class = "btn btn-outline-danger" })
-                                </td>
-                            </tr>
-                        }
+                    @foreach (var product in Model.Product.Category)
+                    {
+                        <tr>
+                            <th scope="row">@rowNumber</th>
+                            <td>@product.CategoryName</td>
+                            <td>
+                                @Ajax.ActionLink("Delete", "DeleteCategMap", "Products", new { ProductId = Model.Product.ProductId, CategoryId = @product.CategoryId }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "window.location.reload()" }, new { @class = "btn btn-outline-danger" })
+                            </td>
+                        </tr>
+                        rowNumber = rowNumber + 1;
+                    }
                 </tbody>
             </table>
         </div>

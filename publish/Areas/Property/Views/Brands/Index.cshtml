@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Property/Views/Shared/_Layout.cshtml";
+    var rowNumber = 1;
 }
 
 <div class="mt-5 container-fluid">
@@ -54,7 +55,7 @@
                     @foreach (var b in ViewBag.brandList)
                     {
                         <tr>
-                            <th scope="row">@b.BrandId</th>
+                            <th scope="row">@rowNumber</th>
                             <td>@b.BrandName</td>
                             <td style="text-align:center">
                                 @*@Html.ActionLink("Details", "Details", "Brands", new { id = b.BrandId }, new { @class = "btn btn-outline-info" })*@
@@ -62,6 +63,7 @@
                                 @Ajax.ActionLink("Delete", "Delete", "Brands", new { id = b.BrandId }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "window.location.reload()"@*, Confirm = "Are you sure you want to delete ?"*@ }, new { @class = "btn btn-outline-danger" })
                             </td>
                         </tr>
+                        rowNumber = rowNumber + 1;
                     }
                 </tbody>
             </table>

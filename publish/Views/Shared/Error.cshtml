@@ -4,11 +4,35 @@
     ViewBag.Title = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
-@if(!string.IsNullOrEmpty(@ViewBag.errorMessage))
+<div class="container d-flex align-items-center justify-content-center" style="height:90vh">
+    <div class="card-body border-1 shadow rounded-pill w-25" style="text-align:center">
+        <strong style="font-size:2vw">Something went Wrong</strong><br />
+        <i class="fas fa-exclamation-triangle fa-8x btn-outline-danger"></i>
+        <p class="text-black-50">
+
+            <br />
+
+            <h4>An error occurred while processing your request.</h4>
+            @if (!string.IsNullOrEmpty(@ViewBag.errorMessage))
             {
-                <p>@ViewBag.errorMessage</p>
+                @ViewBag.errorMessage
             }
+
+        </p>
+            <a href="/Home" class="btn btn-primary">HomePage</a>
+        </div>
+</div>
+
+@*<div class="container d-flex align-items-center justify-content-center" style="height:90vh">
+    <div>
+        <h1 class="text-danger">Error.</h1>
+        <h2 class="text-danger">An error occurred while processing your request.</h2>
+
+        @if (!string.IsNullOrEmpty(@ViewBag.errorMessage))
+        {
+            <p>@ViewBag.errorMessage</p>
+        }
+    </div>
+</div>*@
 
 

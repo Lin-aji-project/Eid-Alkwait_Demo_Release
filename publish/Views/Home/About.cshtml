@@ -2,178 +2,63 @@
     ViewBag.Title = "About";
 }
 @{
-    Layout = "~/Areas/User/Views/Shared/_UserProfileLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div style="width:100%">
-    <div class="container-fluid">
-        <div class="row flex-nowrap">
-            <div class="col py-3">
-                profile information
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <label for="Personal-Information" class="form-label">Personal Information</label>
-                            <a href="" id="edit">Edit</a>
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" placeholder="First name" aria-label="First name" disabled="disabled">
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" disabled="disabled">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label for="Your-Gender" class="form-label mt-3">Your Gender</label>
-                        <div class="form-check form-check-inline col-sm-1 ms-2">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" disabled="disabled">
-                            <label class="form-check-label" for="inlineRadio1">Male</label>
-                        </div>
-                        <div class="form-check form-check-inline col-sm-1">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" disabled="disabled">
-                            <label class="form-check-label" for="inlineRadio2">Female</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label for="Email-Address" class="form-label mt-3">Email Address</label>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="Email Address" aria-label="Email Address" disabled="disabled">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label for="Mobile-Number" class="form-label mt-3">Mobile Number</label>
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="Mobile Number" aria-label="Mobile Number" disabled="disabled">
-                        </div>
-                    </div>
-                    <div class="col-sm-1 mt-4">
-                        <input type="submit" class="form-control btn btn-primary" aria-label="save" value="save" disabled="disabled">
-                    </div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h3 style="font-family:'Comic Sans MS';">About Us</h3>
+        </div>
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="col-11 ">
+                <p style="font-family:'Comic Sans MS';font-size:medium;">
+                    Everest was established in 1996 as a small retail store that has gradually expanded to large wholesale business with more than thousand products in stock to cater increasing market demand.<br /><br />
+                    We are committed to the success of our customers and believe that your hard work is as valuable as ours. Our pricing is based on our cost plus a reasonable profit margin to allow for continued growth and development of our business, employees and future product enhancements.<br /><br />
+                    We believe that long term business relationships are built on trust. It is our policy to be honest and open, providing our customers with quality services at a fair price, whilst also ensuring the sustainability of our business.<br /><br />
+                    We are not a “get quick rich” company, your success will be our success through mutual trust. All our prices are simple and straight forward shown upfront with no misleading discounts.<br /><br />
+                    With a pleasant commercial reputation and advantages of over 25 years of efforts and development, we have set up our own competitive advantages in the Kuwait’s market. Through persistent efforts of the whole staff, we believe our company enjoys great advantages in market, products, scale and prices. We strictly abide by the specifications, follow the business ethics and try best to safeguard our position in Kuwait’s market to supply good quality products consistently with customer satisfaction.<br /><br />
+                    We are always ready to serve every potential customer and we’ll be glad to develop business with them. Any inquiries or orders will be greatly appreciated and given the best attention with a prompt reply.
+                </p>
+            </div>
 
-
-
-                @*----------------------*@
-                <div class="form-group">
-                    <label for="Manage-Addresses" class="form-label">Manage Addresses</label>
-                    <div class="border border-2 p-3">
-                        <a href="" class="text-decoration-none"><span><i class="fas fa-plus"></i> ADD A NEW ADDRESS</span></a>
+            <div class="col-12 p-3" id="Terms">
+                <a href="#" class="text-decoration-none">
+                 <span style="font-size:large">Terms and Conditions</span>
+                </a>
+            </div>
+            <div class="col-11" style="display:none" id="termsandconditions">
+                <hr />
+                <div class="row">
+                    <div class="col-11">
+                        <h4 style="font-family:'Comic Sans MS'">Return Policy:</h4>
+                    </div>
+                    <div class="col-1">
+                        <i class="fas fa-window-close" style="color:red" id="cancel"></i>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="Manage-Addresses" class="form-label">Manage Addresses</label>
-                    <div class="border border-2 p-3 bg-success p-2 text-dark bg-opacity-10">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label for="ADD-NEW-ADDRESS" class="form-label">ADD A NEW ADDRESS</label>
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" placeholder="Name" aria-label="Name" required>
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" placeholder="10 digit mobile number" aria-label="10 digit mobile number" maxlength="10" required>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" placeholder="Pincode" aria-label="Pincode" required>
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" placeholder="Locality" aria-label="Locality" required>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 mt-3">
-                            <textarea class="form-control" placeholder="Address (Area and Street)" aria-label="Address" required style="height: 125px;"></textarea>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" placeholder="City\District\Town" aria-label="Locality" required>
-                            </div>
-                            <div class="col-sm-3">
-                                <select class="form-select" aria-label="state">
-                                    <option value="1">Tuticorin</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" placeholder="Landmark (Optional)" aria-label="Landmark">
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" placeholder="Alternate phone (Optional)" aria-label="Alternate phone">
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <label for="Address-Type" class="form-label mt-3">Address Type</label>
-                            <div class="form-check form-check-inline col-sm-1 ms-2">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="">
-                                <label class="form-check-label" for="inlineRadio1">Home</label>
-                            </div>
-                            <div class="form-check form-check-inline col-sm-1">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="">
-                                <label class="form-check-label" for="inlineRadio2">Work</label>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-sm-1">
-                                <input type="submit" class="btn btn-default bg-primary" value="Save">
-                            </div>
-                            <div class="col-sm-1">
-                                <input type="submit" class="btn btn-default" value="Cancel">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                @*--------------------------*@
-                <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                @*----------------------*@
+                <p style="font-family:'Comic Sans MS';font-size:medium;">
+                    We try our best to ensure that our customers are happy, however, occasionally you may need to replace or return an item. If so this should be done within 14 days from the date of purchase. Item to be returned should be unused and in original packing free from dirt or damage.
+                </p>
             </div>
         </div>
     </div>
 </div>
+<br />
+<br />
 @section scripts{
     <script>
         $(document).ready(function () {
-            $('#edit').click( function () {
-                $("input:text").prop('disabled', false);
-                $("input:radio").prop('disabled', false);
-                $("input:submit").prop('disabled', false);
-                return false;
-                //if($(this).val() != '') {
-                //    $("input:text").prop('disabled', false);
-                //} else {
-                //    $('#submit').prop('disabled', true);
-                //}
+            $("#Terms").click(function () {
+                $("#Terms").hide();
+                $("#termsandconditions").show();
+            });
+            $("#cancel").click(function () {
+                $("#Terms").show();
+                $("#termsandconditions").hide();
             });
         });
     </script>
 
 }
+
 

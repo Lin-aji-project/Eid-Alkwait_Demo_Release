@@ -6,7 +6,7 @@
     var count = 0;
 }
 
-<div class="container">
+<div class="container mb-4">
     <div class="row">
         <div class="col-12">
             <p><h2>Details</h2></p>
@@ -37,9 +37,6 @@
                 <p><span class="mr-1"><strong id="price">$@Model.Variation.Price</strong></span></p>
                 <p class="pt-1">
                     @Model.Product.ProductDescription
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit
-                    error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam. Distinctio,
-                    officia quis dolore quos sapiente tempore alias.
                 </p>
                 <div class="table-responsive" style="width:300px;">
                     <table class="table table-sm table-borderless mb-0">
@@ -136,27 +133,27 @@
                     //data: {
                     //    id:$(this).attr("id")
                     //},
-                    data: '{ "variationId":"' + $(this).attr("id") + '","productId":"' +@Model.Product.ProductId+'"}',
+                    data: '{ "variationId":"' + $(this).attr("id") + '","productId":"' + encodeURIComponent( Model.Product.ProductId) + '"}',
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
                         $('#price').replaceWith('<strong id="price">$' + response.Price + '</strong>');
-                        if (response.IsInStock) {
+                            if (response.IsInStock) {
                             $('#availability').replaceWith('<div class="text-success" id="availability"><Strong >In Stock</Strong></div>');
                             $('.Qtytable').show();
-                        }
-                        else {
+                            }
+                            else {
                             $('#availability').replaceWith(' <div class="text-danger" id="availability"><strong>Out of Stock</Strong></div>');
                             $('.Qtytable').hide();
-                        }
+                            }
 
-                    },
+                        },
                     failure: function (response) {
-                        alert("Cannot process Your request now");
-                    },
+                            alert("Cannot process Your request now");
+                        },
                     error: function (response) {
-                        alert("Cannot process Your request now");
-                    }
+                            alert("Cannot process Your request now");
+                        }
                 });
             });
         });
@@ -172,6 +169,9 @@
             else if (response.success == "Added") {
                 $("#cart-qty").text(response.count);
                 alert("Added successfully");
+            }
+            else if (response.success == "error") {
+                alert(response.message);
             }
 
         }

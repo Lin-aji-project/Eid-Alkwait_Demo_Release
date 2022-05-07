@@ -16,13 +16,14 @@
             string ProductId = String.Format(product.Product.ProductId.ToString());
             string variationId = String.Format(product.Variation.ProductVariationId.ToString());
 
-            <div class="col-2 border-2 rounded-3 shadow p-3 m-3">
+            <div class="col-lg-2 col-md-3 col-sm-4 border-2 rounded-3 shadow p-3 m-3">
                 <div style="text-align:center">
                     @Html.ImageActionLinkWithName((string)name, "Details", "Products", new { id = product.Product.ProductId }, new { style = "height: 150px; width:150px;" }, (string)imgsrc)
                 </div>
                 <div class="row">
                     <div class="col-12" style="text-align:center">
-                        <h6>$ @product.Variation.RetailPrice / @product.Product.UnitName</h6>
+                        <h6 class="mb-0">$ @product.Variation.RetailPrice / @product.Product.UnitName</h6>
+                        <div class="text-muted mb-2"><small>@product.Variation.ProductVariationName - @product.Variation.ProductVariationValue</small></div>
                     </div>
 
                     @using (Ajax.BeginForm("AddToCart", "Cart", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "Success" }, new { @id = "AjaxformId", @class = "form-horizontal", role = "form" }))

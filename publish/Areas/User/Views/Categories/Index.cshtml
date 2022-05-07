@@ -4,17 +4,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-5">
+<div class="container-fluid mt-5">
     <div class="row">
-        @foreach (var category in ViewBag.categoryList)
-        {
-            var imgsrc = String.Format("data:image/gif;base64,{0}", category.ImageFileContent != null ? category.ImageFileContent : " ");
-            var name = String.Format(category.CategoryName);
-            <div class="col-2 mb-3" style="text-align:center">
-                @Html.ImageActionLinkWithName((string)name, "GetProducts", "Categories", new { id = category.CategoryId }, new { style = "height: 150px; width:150px;" }, (string)imgsrc)
-            </div>
-        }
-
+            @foreach (var category in ViewBag.categoryList)
+            {
+                var imgsrc = String.Format("data:image/gif;base64,{0}", category.ImageFileContent != null ? category.ImageFileContent : " ");
+                var name = String.Format(category.CategoryName);
+                <div class="col-lg-2 col-md-3 col-sm-4 mb-3" style="text-align:center">
+                    @Html.ImageActionLinkWithName((string)name, "GetProducts", "Categories", new { id = category.CategoryId }, new { @class = "img-fluid", style = "height: 150px; width:150px;" }, (string)imgsrc)
+                </div>
+            }
     </div>
 </div>
 

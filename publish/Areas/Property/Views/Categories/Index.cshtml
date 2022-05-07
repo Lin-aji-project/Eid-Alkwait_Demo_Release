@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Property/Views/Shared/_Layout.cshtml";
+    var rowNumber = 1;
 }
 <div class="mt-5 container-fluid">
     <div class="row">
@@ -52,14 +53,15 @@
                     @foreach (var c in ViewBag.categoryList)
                     {
                         <tr>
-                            <th scope="row">@c.CategoryId</th>
+                            <th scope="row">@rowNumber</th>
                             <td>@c.CategoryName</td>
                             <td style="text-align:center">
                                 @*@Html.ActionLink("Details", "Details", "Categories", new { id = c.CategoryId }, new { @class = "btn btn-outline-info" })*@
                                 @Html.ActionLink("Edit", "Edit", "Categories", new { id = c.CategoryId }, new { @class = "btn btn-outline-success me-4" })
-                                @Ajax.ActionLink("Delete", "Delete", "Categories", new { id = c.CategoryId }, new AjaxOptions { HttpMethod = "POST",OnSuccess = "window.location.reload()"@*, Confirm = "Are you sure you want to delete ?"*@ }, new { @class = "btn btn-outline-danger" })
+                                @Ajax.ActionLink("Delete", "Delete", "Categories", new { id = c.CategoryId }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "window.location.reload()"@*, Confirm = "Are you sure you want to delete ?"*@ }, new { @class = "btn btn-outline-danger" })
                             </td>
                         </tr>
+                        rowNumber = rowNumber + 1;
                     }
                 </tbody>
             </table>

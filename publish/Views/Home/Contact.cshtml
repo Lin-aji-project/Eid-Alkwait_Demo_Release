@@ -1,17 +1,133 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-6">
+            <div class="container d-flex justify-content-center align-items-center mb-0">
+                <img src="~/Content/Images/logo.jpg" width="250px" height="100px" />
+            </div>
+            @*<div class="text-center mx-auto" style="width:400px;">Eid AL Kuwait © 2022</div>*@
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+            @*<div class="container text-center">
+            <div class="row gy-4">
+                <div class="col-12">
+                    <div class="p-3 border rounded-3 shadow ">
+                        <i class="fab fa-whatsapp fa-2x" style="color:green"></i>  Inquiry - 12345678
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="p-3 border rounded-3 shadow">
+                        <i class="fab fa-whatsapp fa-2x" style="color:green"></i>  Complaint - 12345678
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="p-3 border rounded-circle shadow">
+                        <i class="fab fa-whatsapp fa-2x" style="color:green"></i>  Delivery - 12345678
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="p-3 border rounded-pill shadow">
+                    <i class="fas fa-phone-alt fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+            @*<div class="container">
+                <div class="d-flex align-items-center">
+                    <div class="col-10 mx-auto">
+                        <address>
+                            <strong>456, 1st Main Street</strong>
+                            <p>
+                                Kuwait sub
+                                <br />kuwait landmark<br /> 45659++5+6
+                            </p>
+                        </address>
+                    </div>
+                </div>
+                <div class="row gy-1">
+                    <div class="col-4">
+                        <div class="form-label">
+                            <i class="fab fa-whatsapp" style="color:green"></i>  Inquiry - 12345678
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-label">
+                            <i class="fab fa-whatsapp" style="color:green"></i>  Delivery - 12345678
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-label">
+                            <i class="fas fa-phone-alt"></i> Complaint - 12345678
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+            <div class="card text-center mt-2" style="height:20rem;">
+                <div class="card-header text-capitalize">
+                    <strong>Address</strong>
+                </div>
+                <div class="card-body" style="line-height:30px;">
+                    <h5 class="card-title mt-3">456, 1st Main Street</h5>
+                    <p class="card-text">Kuwait sub ,<br /> kuwait landmark <br /> 45659++5+6</p>
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="row gy-1">
+                        <div class="col-4">
+                            <div class="form-label">
+                                <i class="fab fa-whatsapp" style="color:green"></i>  Inquiry - 1234567890
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-label">
+                                <i class="fab fa-whatsapp" style="color:green"></i>  Delivery - 1234567890
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-label w-100">
+                                <i class="fas fa-phone-alt"></i> Complaint - 12345678
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="container d-flex justify-content-center align-items-center mb-5 mt-4">
+                <h3><strong>Contact Us</strong></h3>
+            </div>
+
+            <form action="#" method="post">
+                <div class="container">
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <textarea name="message" placeholder="Message" class="form-control mb-2" rows="7"></textarea>
+                        </div>
+                        <div class="col-6">
+                            <div>
+                                <input type="text" name="Name" placeholder="Name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div>
+                                <input type="text" name="email" placeholder="Email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div>
+                                <input type="text" name="mobile" placeholder="Mobile" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-grid"><button class="btn btn-primary mb-2">Send</button></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

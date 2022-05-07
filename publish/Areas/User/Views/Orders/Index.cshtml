@@ -42,7 +42,7 @@
                                 }
                             }
                             @*@Html.ActionLink(order.Status, "Details", "Orders", new { id = order.OrderId }, new { @class = "text-decoration-none" + " " + statusbadge })*@
-                            <span class="@statusbadge">@order.Status</span>
+                            <span class="@statusbadge rounded-pill" style="width:60%">@order.Status</span>
                         </div>
                     </div>
                 </div>

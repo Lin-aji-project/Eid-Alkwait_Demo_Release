@@ -19,6 +19,8 @@
             @*<label class="form-label">Category</label>
             @Html.TextBoxFor(p => p.Category.CategoryName, new Dictionary<string, object> { { "class", "form-control mb-3" }, { "readonly", "" }, { "aria-label", "readonly input Product Name" } })*@
             <label class="form-label">Brand</label>
+            @Html.HiddenFor(p => p.Brand.BrandId)
+            @Html.HiddenFor(p => p.BrandId)
             @Html.TextBoxFor(p => p.Brand.BrandName, new Dictionary<string, object> { { "class", "form-control mb-3" }, { "readonly", "" }, { "aria-label", "readonly input Product Name" } })
             <label class="form-label">Unit</label>
             @Html.HiddenFor(model => model.ProductUnit.Description)

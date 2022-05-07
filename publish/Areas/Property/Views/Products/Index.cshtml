@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Property/Views/Shared/_Layout.cshtml";
+    var rowNumber = 1;
 }
 
 <div class="mt-5 container-fluid">
@@ -24,7 +25,7 @@
                     @foreach (var p in ViewBag.productlist)
                     {
                         <tr>
-                            <th scope="row">@p.ProductId</th>
+                            <th scope="row">@rowNumber</th>
                             <td>@p.ProductName</td>
                             <td class="justify-content-end align-self-center">
                                 @Html.ActionLink("Add variation", "Index", "Variations", new { id = p.ProductId }, new { @class = "btn btn-outline-info offset-1" })
@@ -39,6 +40,7 @@
                                 }, new { @class = "btn btn-outline-danger offset-1" })*@
                             </td>
                         </tr>
+                        rowNumber = rowNumber + 1;
                     }
                 </tbody>
             </table>
