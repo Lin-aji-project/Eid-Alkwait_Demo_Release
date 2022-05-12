@@ -168,9 +168,9 @@
                 alert("Please login to purchase");
             else if (response.success == "Added") {
                 $("#cart-qty").text(response.count);
-                alert("Added successfully");
+                //alert("Added successfully");
             }
-            else if (response.success == "error") {
+            else if (response.success == "Error") {
                 alert(response.message);
             }
 

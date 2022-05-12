@@ -34,7 +34,8 @@
                         data: { Prefix: request.term },
                         success: function (data) {
                             response($.map(data, function (item) {
-                                return { label: item.ProductName, value: item.ProductName };
+                                return { label: item, value: item };
+                                //return { label: item.ProductName, value: item.ProductName };
                             }))
 
                         }

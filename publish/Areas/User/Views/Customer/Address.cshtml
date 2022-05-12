@@ -14,7 +14,7 @@
         </a>
     </div>
     <div class="col-8 small mb-5" style="display:none" id="AddAddressForm">
-        @using (Html.BeginForm("Address", "Customer", FormMethod.Post, new { Area = "User"}))
+        @using (Html.BeginForm("Address", "Customer", FormMethod.Post, new { Area = "User" }))
         {
             <div class="row g-2">
                 <div class="col-md-6 form-floating mb-3">
@@ -43,14 +43,14 @@
                     @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-6 form-floating mb-3">
-                    @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "City" })
-                    @Html.LabelFor(m => m.City)
-                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-6 form-floating mb-3">
                     @Html.TextBoxFor(m => m.State, new { @class = "form-control", placeholder = "State" })
                     @Html.LabelFor(m => m.State)
                     @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6 form-floating mb-3">
+                    @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "City" })
+                    @Html.LabelFor(m => m.City)
+                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-6 form-floating mb-3">
                     @Html.TextBoxFor(m => m.Landmark, new { @class = "form-control", placeholder = "Landmark" })
@@ -78,11 +78,12 @@
             {
                 <div class="row d-flex pt-3">
                     <div class="col-10">
-                                <strong>@address.Name  &nbsp;&nbsp;   @address.MobileNumber</strong>
+                        <strong>@address.Name  &nbsp;&nbsp;   @address.MobileNumber</strong>
                         <p>@address.Address <span><strong>@address.Pincode</strong></span></p>
                     </div>
                     <div class="col-2">
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        @*<button type="button" class="btn btn-danger">Delete</button>*@
+                        @Ajax.ActionLink("Delete", "DeleteAddress", "Customer", new { Id = address.Id}, new AjaxOptions { HttpMethod = "POST", OnSuccess = "Suc(data)" }, new { @class = "btn btn-danger" })
                     </div>
                 </div>
                 <hr />
@@ -93,7 +94,7 @@
 </div>
 
 @section scripts{
-    <script>
+    <script type="text/javascript">
         $(document).ready(function () {
             $("#AddAddress").click(function () {
                 $("#AddAddress").hide();
@@ -104,6 +105,17 @@
                 $("#AddAddressForm").hide();
             });
         });
+        function Suc(response) {
+            if (response.success == "Deleted") {
+                window.location.reload();
+                //alert("Added successfully");
+            }
+            else if (response.success == "Error") {
+                alert(response.message);
+            }
+        }
+
     </script>
+
 
 }

@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <br />
-                    <a class="sb-sidenav-menu-heading text-decoration-none"  href="javascript:document.getElementById('logoutForm').submit()"><i class="fas fa-power-off  fa-lg me-2 icon"></i>Logout</a>
+                    <a class="sb-sidenav-menu-heading text-decoration-none" href="javascript:document.getElementById('logoutForm').submit()"><i class="fas fa-power-off  fa-lg me-2 icon"></i>Logout</a>
 
                 </div>
 
@@ -81,10 +81,30 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
     <script>
         $(document).ready(function () {
             $("#cart-qty").text(@Session["cartcount"]);
+            $("#ProductName").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/User/Customer/Index",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.ProductName, value: item.ProductName };
+                            }))
+
+                        }
+                    })
+                },
+                //messages: {
+                //    noResults: "", results: ""
+                //}
+            });
         });
     </script>
 </body>
